@@ -19,16 +19,5 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "JetBrainsMono NF" :foundry "outline" :slant normal :weight regular :height 102 :width normal)))))
 
-(defun set-4-spaces-indentation()
-    (setq-default indent-tabs-mode nil)
-    (setq-default tab-width 4)
-    (setq indent-line-function 'insert-tab))
-
-(add-hook 'c++-mode-hook
-    (lambda() (set-4-spaces-indentation)))
-
-(add-hook 'c-mode-hook
-    (lambda() (set-4-spaces-indentation)))
-
-(add-hook 'emacs-lisp-mode-hook
-    (lambda() (set-4-spaces-indentation)))
+(setq-default c-basic-offset 4)
+(setq-default lisp-body-indent 4)
