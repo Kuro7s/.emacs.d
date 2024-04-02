@@ -4,11 +4,7 @@
 (setq package-archives
       '(("GNU ELPA" . "https://elpa.gnu.org/packages/")
         ("MELPA" . "https://melpa.org/packages/")
-        ("NONGNU" . "https://elpa.nongnu.org/nongnu/"))
-      package-archive-priorities
-      '(("GNU ELPA" . 5)
-        ("NONGNU" . 3)
-        ("MELPA" . 0)))
+        ("NONGNU" . "https://elpa.nongnu.org/nongnu/")))
 
 (when (version< emacs-version "27.0") (package-initialize))
 
