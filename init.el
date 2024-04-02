@@ -1,37 +1,67 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(custom-enabled-themes '(wheatgrass))
- '(display-line-numbers-type 'relative)
- '(global-display-line-numbers-mode t)
- '(inhibit-startup-screen t)
- '(tool-bar-mode nil)
- '(menu-bar-mode nil)
- '(tooltip-mode nil))
+;; Package managment (Some things taken from: https://github.com/Bassmann/emacs-config/blob/master/init.el)
+(require 'package)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "JetBrainsMono NF" :foundry "outline" :slant normal :weight regular :height 102 :width normal)))))
+(setq package-archives
+      '(("GNU ELPA" . "https://elpa.gnu.org/packages/")
+        ("MELPA" . "https://melpa.org/packages/")
+        ("NONGNU" . "https://elpa.nongnu.org/nongnu/"))
+      package-archive-priorities
+      '(("GNU ELPA" . 5)
+        ("NONGNU" . 3)
+        ("MELPA" . 0)))
 
+(when (version< emacs-version "27.0") (package-initialize))
+
+(unless (package-installed-p 'projectile)
+    (package-refresh-contents)
+    (package-install 'projectile t))
+
+;; Projectile
+(projectile-mode +1)
+
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;; Theme
+(load-theme 'wheatgrass)
+
+;; Indentation
 ;; Mode specific indentation
 (setq-default c-basic-offset 4)
 (setq-default lisp-body-indent 4)
 
 (setq-default truncate-lines t)
 
-;; Stop emacs from making backup and recovery files in the same directory as the original files.
+(setq-default indent-tabs-mode nil)
 
-; Set the directory for backup files
+;; Set the directory for backup files
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-; Set the directory for auto-save files
+;; Set the directory for auto-save files
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-saves/" t)))
 
-; Disable the creation of lock files
+;; Disable the creation of lock files
 (setq create-lockfiles nil)
+
+;; Font
+(ignore-errors (set-face-attribute 'default nil :font "JetBrains Mono" :height 102))
+
+;; Custom
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
+ '(display-line-numbers-type 'relative)
+ '(global-display-line-numbers-mode t)
+ '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
+ '(package-selected-packages '(projectile rust-mode zenburn-theme catppuccin-theme))
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
