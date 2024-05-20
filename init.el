@@ -54,7 +54,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages '(projectile rust-mode zenburn-theme catppuccin-theme))
  '(tool-bar-mode nil)
- '(tooltip-mode nil))
+ '(tooltip-mode nil)
+ '(column-number-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
