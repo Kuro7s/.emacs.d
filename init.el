@@ -18,7 +18,7 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Theme
-(load-theme 'wheatgrass)
+(load-theme 'modus-vivendi)
 
 ;; Indentation
 ;; Mode specific indentation
