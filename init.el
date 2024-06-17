@@ -12,6 +12,26 @@
     (package-refresh-contents)
     (package-install 'projectile t))
 
+(unless (package-installed-p 'tree-sitter)
+    (package-refresh-contents)
+    (package-install 'tree-sitter t))
+
+(unless (package-installed-p 'tree-sitter-langs)
+    (package-refresh-contents)
+    (package-install 'tree-sitter-langs t))
+
+;; Tree sitter
+
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+
+(tree-sitter-require 'c)
+(tree-sitter-require 'cpp)
+(tree-sitter-require 'python)
+
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
 ;; Projectile
 (projectile-mode +1)
 
@@ -41,6 +61,9 @@
 ;; Font
 (ignore-errors (set-face-attribute 'default nil :font "JetBrains Mono" :height 102))
 
+;; *.h -> c++-mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 ;; Custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -48,14 +71,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
+ '(column-number-mode t)
  '(display-line-numbers-type 'relative)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
- '(package-selected-packages '(projectile rust-mode zenburn-theme catppuccin-theme))
  '(tool-bar-mode nil)
- '(tooltip-mode nil)
- '(column-number-mode t))
+ '(tooltip-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
