@@ -8,10 +8,6 @@
 
 (when (version< emacs-version "27.0") (package-initialize))
 
-(unless (package-installed-p 'projectile)
-    (package-refresh-contents)
-    (package-install 'projectile t))
-
 (unless (package-installed-p 'tree-sitter)
     (package-refresh-contents)
     (package-install 'tree-sitter t))
@@ -31,11 +27,6 @@
 
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
-;; Projectile
-(projectile-mode +1)
-
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Theme
 (load-theme 'wheatgrass)
