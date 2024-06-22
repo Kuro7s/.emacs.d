@@ -12,29 +12,14 @@
     (package-refresh-contents)
     (package-install 'kaolin-themes t))
 
-(unless (package-installed-p 'tree-sitter)
+(unless (package-installed-p 'naysayer-theme)
     (package-refresh-contents)
-    (package-install 'tree-sitter t))
-
-(unless (package-installed-p 'tree-sitter-langs)
-    (package-refresh-contents)
-    (package-install 'tree-sitter-langs t))
-
-;; Tree sitter
-
-(require 'tree-sitter)
-(require 'tree-sitter-langs)
-
-(tree-sitter-require 'c)
-(tree-sitter-require 'cpp)
-(tree-sitter-require 'python)
-
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+    (package-install 'naysayer-theme t))
 
 ;; Theme
-(require 'kaolin-themes)
-(load-theme 'kaolin-dark t)
+(load-theme 'naysayer t)
+;; (require 'kaolin-themes)
+;; (load-theme 'kaolin-dark t)
 ;; (load-theme 'wheatgrass t)
 
 ;; Indentation
