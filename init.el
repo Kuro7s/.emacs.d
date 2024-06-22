@@ -8,6 +8,10 @@
 
 (when (version< emacs-version "27.0") (package-initialize))
 
+(unless (package-installed-p 'kaolin-themes)
+    (package-refresh-contents)
+    (package-install 'kaolin-themes t))
+
 (unless (package-installed-p 'tree-sitter)
     (package-refresh-contents)
     (package-install 'tree-sitter t))
@@ -29,10 +33,12 @@
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;; Theme
-(load-theme 'wheatgrass)
+(require 'kaolin-themes)
+(load-theme 'kaolin-dark t)
+;; (load-theme 'wheatgrass t)
 
 ;; Indentation
-;; Mode specific indentation
+; Mode specific indentation
 (setq-default c-basic-offset 4)
 (setq-default lisp-body-indent 4)
 
