@@ -1,3 +1,23 @@
+;; Always remember to run "runemacs --daemon" at the startup of your machine to speed up startup a bit.
+;; Tutorial for Windows: Win+R, to open run menu, then type and run "shell:startup", finally create a shortcut that runs the emacs daemon.
+
+;; -- package.el Initialization --
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; -- Cool Stuff --
+
+(setq ido-everywhere t)
+(setq ido-enable-flex-matching t)
+
+(ido-mode t)
+
+(global-auto-revert-mode)
+
+;; -- Indentation --
+
 (defun style-c-mode-hook ()
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
@@ -7,9 +27,12 @@
 
 (setq-default indent-tabs-mode nil)
 
+;; -- Bullshit Removal --
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
+;; I hate the emacs startup screen, looks stupid.
 (setq inhibit-startup-screen t)
 
 (setq create-lockfiles nil)
@@ -18,19 +41,30 @@
 (setq auto-save-file-name-transforms
       `((".*" "~/.emacs-saves" t)))
 
-(setq desktop-save 'if-exists)
-(desktop-save-mode t)
-
-(global-auto-revert-mode)
-
-(global-display-line-numbers-mode 1)
-(setq display-line-numbers-type 'relative)
-
 (set-message-beep 'silent)
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; -- Performance --
+
+;; The variable redisplay-dont-pause, when set to t, will cause Emacs to fully redraw the display before it processes queued input events. This may have slight performance implications if you’re aggressively mouse scrolling a document or rely on your keyboard’s auto repeat feature. For most of us, myself included, it’s probably a no-brainer to switch it on.
+;;  - Source: https://www.masteringemacs.org/article/improving-performance-emacs-display-engine
+(setq redisplay-dont-pause t)
+
+;; -- Looks --
 
 (set-face-attribute 'default nil :family "JetBrains Mono" :height 105)
 
-(setq-default show-trailing-whitespace t)
+(use-package nordic-night-theme
+  :ensure t
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'nordic-night t)
+  :config
+  (load-theme 'nordic-night t))
+
+;; Line numbers
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative)
+
+(setq-default show-trailing-whitespace t)
