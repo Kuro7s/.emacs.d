@@ -12,10 +12,36 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; Key bindings
+
+;; move line up
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (previous-line 2))
+
+;; move line down
+(defun move-line-down ()
+  (interactive)
+  (next-line 1)
+  (transpose-lines 1)
+  (previous-line 1))
+
+(global-set-key (kbd "C-'") 'move-line-up)
+(global-set-key (kbd "C-;") 'move-line-down)
+
+(global-set-key (kbd "M-p") (kbd "C-<up>"))
+(global-set-key (kbd "M-n") (kbd "C-<down>"))
+
+(global-set-key (kbd "M-RET") #'compile)
+
 ;; -- Cool Stuff --
 
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
+
+(setq ido-create-new-buffer 'always)
+(setq-default confirm-nonexistent-file-or-buffer nil)
 
 (ido-mode t)
 
@@ -33,6 +59,16 @@
 (setq-default indent-tabs-mode nil)
 
 ;; -- Bullshit Removal --
+
+;;                  Fuck this
+;;                      |
+;;                     \|/
+;;                      -
+(setq ido-auto-merge-work-directories-length -1) ;; <--- Fuck this
+;;                      -
+;;                     /|\
+;;                      |
+;;                  Fuck this
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -73,3 +109,4 @@
 (setq display-line-numbers-type 'relative)
 
 (setq-default show-trailing-whitespace t)
+(put 'upcase-region 'disabled nil)
