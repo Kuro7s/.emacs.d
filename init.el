@@ -4,9 +4,6 @@
 ;; I use the windows terminal with cmd as the default prompt(The one that comes runs vcvarsXX.bat at the startup, "Developer Command Prompt for VS 2022" I believe) and clink with "clink.default_bindings" set to "bash" so i can use the emacs key bindings within cmd.
 ;; I also like to modify the "Starting directory" to whatever my current workspace directory is, in the profile of the previously said "dev blah blah prompt".
 
-;; Always remember to run "runemacs --daemon" at the startup of your machine to speed up startup a bit.
-;; Tutorial for Windows: Win+R, to open run menu, then type and run "shell:startup", finally create a shortcut that runs the emacs daemon(using "runemacs --daemon" as executable line or what ever the hell is called for the shortcut).
-
 ;; Defining %HOME% as a user environment variable is also a pretty good idea so emacs thinks ~/ is the user directory on windows. In emacs "~" or home is set to %APPDATA% by default on windows.
 
 ;; -- package.el Initialization --
