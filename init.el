@@ -101,8 +101,15 @@
 (use-package nordic-night-theme
   :ensure t
 
+;;  :config
+;;  (load-theme 'nordic-night t)
+)
+
+(use-package naysayer-theme
+  :ensure t
+
   :config
-  (load-theme 'nordic-night t))
+  (load-theme 'naysayer t))
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
