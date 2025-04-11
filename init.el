@@ -37,6 +37,11 @@
 
 ;; -- Cool Stuff --
 
+;; Non vcs-staged file with (mostly) personal stuff in it.
+(setq local-stuff-file (concat user-emacs-directory "local-stuff.el"))
+(when (file-exists-p local-stuff-file)
+  (load local-stuff-file))
+
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 
@@ -47,8 +52,9 @@
 
 (global-auto-revert-mode)
 
-;; -- Indentation --
+;; -- Code Style and language specific helpers --
 
+;; C/C++ indentation
 (defun style-c-mode-hook ()
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
@@ -57,6 +63,9 @@
 (add-hook 'c-mode-hook 'style-c-mode-hook)
 
 (setq-default indent-tabs-mode nil)
+
+;; C/C++ helpers
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; -- Bullshit Removal --
 
@@ -73,7 +82,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
-;; I hate the emacs startup screen, looks stupid.
+;; I hate the emacs startup screen, it looks stupid.
 (setq inhibit-startup-screen t)
 
 (setq create-lockfiles nil)
@@ -96,7 +105,7 @@
 
 ;; -- Looks --
 
-(set-face-attribute 'default nil :family "JetBrains Mono" :height 105)
+(set-frame-font "Cascadia Mono 12" nil t)
 
 (use-package nordic-night-theme
   :ensure t
@@ -109,7 +118,8 @@
   :ensure t
 
   :config
-  (load-theme 'naysayer t))
+  (load-theme 'naysayer t)
+)
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
