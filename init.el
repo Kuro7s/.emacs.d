@@ -110,8 +110,8 @@
 (use-package nordic-night-theme
   :ensure t
 
-;;  :config
-;;  (load-theme 'nordic-night t)
+  :config
+  (load-theme 'nordic-night t)
 )
 
 (use-package naysayer-theme
@@ -124,9 +124,15 @@
 (use-package catppuccin-theme
   :ensure t
 
-  :config
-  (load-theme 'catppuccin t)
+  ;; :config
+  ;; (load-theme 'catppuccin t)
 )
+
+;; (use-package vscode-dark-plus-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'vscode-dark-plus t)
+;; )
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
