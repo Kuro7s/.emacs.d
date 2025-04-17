@@ -117,8 +117,15 @@
 (use-package naysayer-theme
   :ensure t
 
-  :config
-  (load-theme 'naysayer t)
+;;   :config
+;;   (load-theme 'naysayer t)
+)
+
+(use-package catppuccin-theme
+  :ensure t
+
+  ;; :config
+  (load-theme 'catppuccin t)
 )
 
 ;; Line numbers
