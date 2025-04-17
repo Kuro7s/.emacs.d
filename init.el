@@ -124,7 +124,7 @@
 (use-package catppuccin-theme
   :ensure t
 
-  ;; :config
+  :config
   (load-theme 'catppuccin t)
 )
 
