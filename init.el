@@ -105,20 +105,20 @@
 
 ;; -- Looks --
 
-(set-frame-font "Cascadia Mono 12" nil t)
+(set-frame-font "JetBrains Mono 11" nil t)
 
 (use-package nordic-night-theme
   :ensure t
 
-  :config
-  (load-theme 'nordic-night t)
+;;  :config
+;;  (load-theme 'nordic-night t)
 )
 
 (use-package naysayer-theme
   :ensure t
 
-;;   :config
-;;   (load-theme 'naysayer t)
+   :config
+   (load-theme 'naysayer t)
 )
 
 (use-package catppuccin-theme
