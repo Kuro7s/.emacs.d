@@ -6,10 +6,10 @@
 
 (deftheme thetheme "DOCSTRING for thetheme")
   (custom-theme-set-faces 'thetheme
-   '(default ((t (:foreground "#bed4ca" :background "#002424" ))))
+   '(default ((t (:foreground "#eadec6" :background "#002424" ))))
    '(cursor ((t (:background "#fdf4c1" ))))
-   '(fringe ((t (:background "#343434" ))))
-   '(mode-line ((t (:foreground "#000000" :background "#f4fffb" ))))
+   '(fringe ((t (:background "#002525" ))))
+   '(mode-line ((t (:foreground "#000000" :background "#f0ffe5" ))))
    '(region ((t (:background "#0051aa" ))))
    '(secondary-selection ((t (:background "#628687" ))))
    '(font-lock-builtin-face ((t (:foreground "#89ffa0" ))))
@@ -18,9 +18,9 @@
    '(font-lock-keyword-face ((t (:foreground "#ffffff" ))))
    '(font-lock-string-face ((t (:foreground "#00c278" ))))
    '(font-lock-type-face ((t (:foreground "#6fffa1" ))))
-   '(font-lock-constant-face ((t (:foreground "#00dea2" ))))
+   '(font-lock-constant-face ((t (:foreground "#a0ffe5" ))))
    '(font-lock-variable-name-face ((t (:foreground "#cfe4e3" ))))
-   '(minibuffer-prompt ((t (:foreground "#d3ffb6" :bold t ))))
+   '(minibuffer-prompt ((t (:foreground "#ebffdd" :bold t ))))
    '(font-lock-warning-face ((t (:foreground "red" :bold t ))))
    )
 
