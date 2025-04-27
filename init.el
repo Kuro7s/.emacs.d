@@ -117,22 +117,12 @@
 (use-package naysayer-theme
   :ensure t
 
-   :config
-   (load-theme 'naysayer t)
+;;  :config
+;;  (load-theme 'naysayer t)
 )
 
-(use-package catppuccin-theme
-  :ensure t
-
-  ;; :config
-  ;; (load-theme 'catppuccin t)
-)
-
-;; (use-package vscode-dark-plus-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'vscode-dark-plus t)
-;; )
+(load-file (concat user-emacs-directory "thetheme-theme.el"))
+(load-theme 'thetheme)
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
