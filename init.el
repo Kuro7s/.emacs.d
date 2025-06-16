@@ -110,19 +110,9 @@
 (use-package nordic-night-theme
   :ensure t
 
-;;  :config
-;;  (load-theme 'nordic-night t)
+ :config
+ (load-theme 'nordic-midnight t)
 )
-
-(use-package naysayer-theme
-  :ensure t
-
-;;  :config
-;;  (load-theme 'naysayer t)
-)
-
-(load-file (concat user-emacs-directory "thetheme-theme.el"))
-(load-theme 'thetheme)
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
