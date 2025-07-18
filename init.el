@@ -105,14 +105,17 @@
 
 ;; -- Looks --
 
-(set-frame-font "JetBrains Mono 11" nil t)
+;; (set-frame-font "JetBrains Mono 11" nil t)
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
 
 (use-package nordic-night-theme
   :ensure t
+  :config (load-theme 'nordic-midnight))
 
- :config
- (load-theme 'nordic-midnight t)
-)
+(add-hook 'after-make-frame-functions
+    (lambda (frame)
+      (with-selected-frame frame
+        (load-theme 'nordic-midnight t))))
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
