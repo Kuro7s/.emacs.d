@@ -69,6 +69,15 @@
 
 ;; -- Bullshit Removal --
 
+(setq special-display-buffer-names
+      '("*compilation*"))
+
+(setq special-display-function
+      (lambda (buffer &optional args)
+        (split-window)
+        (switch-to-buffer buffer)
+        (get-buffer-window buffer 0)))
+
 ;;                  Fuck this
 ;;                      |
 ;;                     \|/
