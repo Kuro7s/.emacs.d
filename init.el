@@ -12,7 +12,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-;; Key bindings
+;; -- Key bindings --
 
 ;; move line up
 (defun move-line-up ()
@@ -33,7 +33,21 @@
 (global-set-key (kbd "M-p") (kbd "C-<up>"))
 (global-set-key (kbd "M-n") (kbd "C-<down>"))
 
-(global-set-key (kbd "M-RET") #'compile)
+(global-set-key (kbd "M-<return>") #'recompile)
+(global-set-key (kbd "C-<return>") #'compile)
+
+(defun reload-init-file ()
+  (interactive)
+  (load-file user-init-file))
+
+(global-set-key (kbd "M-:") #'reload-init-file)
+
+(defun open-init-file ()
+  (interactive)
+  (split-window-horizontally)
+  (find-file user-init-file))
+
+(global-set-key (kbd "C-M-:") #'open-init-file)
 
 ;; -- Cool Stuff --
 
@@ -72,9 +86,15 @@
 (setq special-display-buffer-names
       '("*compilation*"))
 
+(defun compilation-custom-split-window ()
+  (if (< (length (window-list)) 2)
+      (progn (split-window-horizontally)
+             (other-window 1))
+    (split-window)))
+
 (setq special-display-function
       (lambda (buffer &optional args)
-        (split-window)
+        (compilation-custom-split-window)
         (switch-to-buffer buffer)
         (get-buffer-window buffer 0)))
 
@@ -97,8 +117,8 @@
 (setq create-lockfiles nil)
 (setq backup-directory-alist
       `((".*" . "~/.emacs-saves")))
-(setq auto-save-file-name-transforms
-      `((".*" "~/.emacs-saves" t)))
+(setq auto-save-file-name-transform
+      `((".*" . "~/.emacs-saves")))
 
 (set-message-beep 'silent)
 
@@ -114,8 +134,8 @@
 
 ;; -- Looks --
 
-;; (set-frame-font "JetBrains Mono 11" nil t)
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
+(set-frame-font "JetBrains Mono Semibold-11" nil t)
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono Semibold-11"))
 
 (use-package nordic-night-theme
   :ensure t
