@@ -12,6 +12,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; -- Packages --
 (use-package kaolin-themes :ensure t)
 
 ;; -- Key bindings --
@@ -69,6 +70,11 @@
 (global-auto-revert-mode)
 
 ;; -- Code Style and language specific helpers --
+
+;; Some custom keywords
+(font-lock-add-keywords
+ 'c++-mode
+ '(("^\\(defer\\|internal\\|cast\\|global_var\\)\\>" 0 'font-lock-keyword-face)))
 
 ;; C/C++ indentation
 (defun style-c-mode-hook ()
@@ -135,9 +141,11 @@
 (setq redisplay-dont-pause t)
 
 ;; -- Looks --
+(when (not (boundp 'current-font))
+  (setq current-font "JetBrains Mono Semibold-11"))
 
-(set-frame-font "JetBrains Mono Semibold-11" nil t)
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono Semibold-11"))
+(set-frame-font current-font nil t)
+(add-to-list 'default-frame-alist `(font . ,current-font))
 
 (defun set-theme (theme)
   (load-theme theme)
