@@ -12,6 +12,8 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(use-package kaolin-themes :ensure t)
+
 ;; -- Key bindings --
 
 ;; move line up
@@ -137,14 +139,14 @@
 (set-frame-font "JetBrains Mono Semibold-11" nil t)
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono Semibold-11"))
 
-(use-package nordic-night-theme
-  :ensure t
-  :config (load-theme 'nordic-midnight))
+(defun set-theme (theme)
+  (load-theme theme)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (load-theme theme t)))))
 
-(add-hook 'after-make-frame-functions
-    (lambda (frame)
-      (with-selected-frame frame
-        (load-theme 'nordic-midnight t))))
+(set-theme 'kaolin-dark)
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
