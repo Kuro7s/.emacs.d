@@ -128,7 +128,8 @@
 (setq auto-save-file-name-transform
       `((".*" . "~/.emacs-saves")))
 
-(set-message-beep 'silent)
+(when (fboundp 'set-message-beep)
+  (set-message-beep 'silent))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
