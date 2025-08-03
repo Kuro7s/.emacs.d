@@ -71,22 +71,23 @@
 
 ;; -- Code Style and language specific helpers --
 
-;; Some custom keywords
-(font-lock-add-keywords
- 'c++-mode
- '(("^\\(defer\\|internal\\|cast\\|global_var\\)\\>" 0 'font-lock-keyword-face)))
+;; C/C++ Style and custom keywords
+(defvar our-c-custom-keywords '("internal" "defer" "global_var" "cast"))
 
-;; C/C++ indentation
-(defun style-c-mode-hook ()
+(defun the-c-mode-hook ()
+  (dolist (keyword our-c-custom-keywords)
+    (font-lock-add-keywords
+     nil
+     `((,(concat "\\<" keyword "\\>") . 'font-lock-keyword-face))))
+
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
 
-(add-hook 'c++-mode-hook 'style-c-mode-hook)
-(add-hook 'c-mode-hook 'style-c-mode-hook)
+(add-hook 'c++-mode-hook 'the-c-mode-hook)
+(add-hook 'c-mode-hook 'the-c-mode-hook)
 
 (setq-default indent-tabs-mode nil)
 
-;; C/C++ helpers
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; -- Bullshit Removal --
