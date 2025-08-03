@@ -72,13 +72,18 @@
 ;; -- Code Style and language specific helpers --
 
 ;; C/C++ Style and custom keywords
+
 (defvar our-c-custom-keywords '("internal" "defer" "global_var" "cast"))
 
 (defun the-c-mode-hook ()
   (dolist (keyword our-c-custom-keywords)
     (font-lock-add-keywords
      nil
-     `((,(concat "\\<" keyword "\\>") . 'font-lock-keyword-face))))
+     `((,(concat "\\<" keyword "\\>") . 'font-lock-keyword-face)))
+
+    ;; NOTE: This prevents the keyword from being fontified with font-lock-type-face in certain situations.
+    ;;       P.S: It took me like six hours to figure this stupid shit out (not a fucking joke)...
+    (push keyword c-noise-macro-with-parens-names))
 
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
