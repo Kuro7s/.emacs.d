@@ -6,51 +6,21 @@
 
 ;; Defining %HOME% as a user environment variable is also a pretty good idea so emacs thinks ~/ is the user directory on windows. In emacs "~" or home is set to %APPDATA% by default on windows.
 
-;; -- package.el Initialization --
+;; @Note: I don't really use packages
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; -- Packages --
-(use-package kaolin-themes :ensure t)
-
+;; @Todo: Do clean-up and organizaition.
 ;; -- Key bindings --
-
-;; move line up
-(defun move-line-up ()
-  (interactive)
-  (transpose-lines 1)
-  (previous-line 2))
-
-;; move line down
-(defun move-line-down ()
-  (interactive)
-  (next-line 1)
-  (transpose-lines 1)
-  (previous-line 1))
-
-(global-set-key (kbd "C-'") 'move-line-up)
-(global-set-key (kbd "C-;") 'move-line-down)
-
 (global-set-key (kbd "M-p") (kbd "C-<up>"))
 (global-set-key (kbd "M-n") (kbd "C-<down>"))
 
 (global-set-key (kbd "M-<return>") #'recompile)
 (global-set-key (kbd "C-<return>") #'compile)
 
-(defun reload-init-file ()
-  (interactive)
-  (load-file user-init-file))
-
-(global-set-key (kbd "M-:") #'reload-init-file)
-
 (defun open-init-file ()
   (interactive)
-  (split-window-horizontally)
   (find-file user-init-file))
 
-(global-set-key (kbd "C-M-:") #'open-init-file)
+(global-set-key (kbd "C-:") #'open-init-file)
 
 ;; -- Cool Stuff --
 
@@ -58,14 +28,6 @@
 (setq local-stuff-file (concat user-emacs-directory "local-stuff.el"))
 (when (file-exists-p local-stuff-file)
   (load local-stuff-file))
-
-(setq ido-everywhere t)
-(setq ido-enable-flex-matching t)
-
-(setq ido-create-new-buffer 'always)
-(setq-default confirm-nonexistent-file-or-buffer nil)
-
-(ido-mode t)
 
 (global-auto-revert-mode)
 
@@ -81,7 +43,7 @@
      nil
      `((,(concat "\\<" keyword "\\>") . 'font-lock-keyword-face)))
 
-    ;; NOTE: This prevents the keyword from being fontified with font-lock-type-face in certain situations.
+    ;; NOTE: This prevents the keyword from being fontified with font-lock-type-face when located in front of declarations.
     ;;       P.S: It took me like six hours to figure this stupid shit out (not a fucking joke)...
     (push keyword c-noise-macro-with-parens-names))
 
@@ -100,6 +62,7 @@
 (setq special-display-buffer-names
       '("*compilation*"))
 
+;; @Fix: This doesn't work as intended!
 (defun compilation-custom-split-window ()
   (if (< (length (window-list)) 2)
       (progn (split-window-horizontally)
@@ -112,22 +75,14 @@
         (switch-to-buffer buffer)
         (get-buffer-window buffer 0)))
 
-;;                  Fuck this
-;;                      |
-;;                     \|/
-;;                      -
-(setq ido-auto-merge-work-directories-length -1) ;; <--- Fuck this
-;;                      -
-;;                     /|\
-;;                      |
-;;                  Fuck this
-
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; I hate the emacs startup screen, it looks stupid.
 (setq inhibit-startup-screen t)
 
+;; Not working properly btw!
 (setq create-lockfiles nil)
 (setq backup-directory-alist
       `((".*" . "~/.emacs-saves")))
@@ -147,11 +102,16 @@
 ;;  - Source: https://www.masteringemacs.org/article/improving-performance-emacs-display-engine
 (setq redisplay-dont-pause t)
 
-;; -- Looks --
-(when (not (boundp 'current-font))
-  (setq current-font "JetBrains Mono Semibold-11"))
+(setq native-comp-speed 2)
 
-(set-frame-font current-font nil t)
+;; -- Looks --
+(setq-default truncate-lines 't)
+(setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist)) ;; Disables the truncation marker.
+
+(when (not (boundp 'current-font))
+  (setq current-font "JetBrains Mono Semibold-12"))
+
+;;(set-frame-font current-font nil t)
 (add-to-list 'default-frame-alist `(font . ,current-font))
 
 (defun set-theme (theme)
@@ -161,7 +121,8 @@
               (with-selected-frame frame
                 (load-theme theme t)))))
 
-(set-theme 'kaolin-dark)
+(load (expand-file-name "nordic-night-theme/nordic-night-theme.el" user-emacs-directory))
+(set-theme 'nordic-night)
 
 ;; Line numbers
 (global-display-line-numbers-mode 1)
