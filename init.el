@@ -1,17 +1,21 @@
-;; -- IMPORTANT NOTES (Should start using org-mode to keep track of these at some point. Don't know how convinient that would be really... I'm not a heavy emacs user so...) --
+;; -- WINDOWS IMPORTANT NOTES (Should start using org-mode to keep track of these at some point. Don't know how convinient that would be really...) -- (You damn microsoft...)
+
+;; !!! FOR EMACS TO LOOK RIGHT EVEN IF YOU CHANGE SCREENS YOU NEED TO CHANGE DPI SETTINGS OF THE EMACS EXECUTABLE AND SET SCALING PERFORMED BY APPLICATION !!!
 
 ;; - Terminal and shell setup notes; Just a reminder that has nothing to do with emacs.
-;; I use the windows terminal with cmd as the default prompt(The one that comes runs vcvarsXX.bat at the startup, "Developer Command Prompt for VS 2022" I believe) and clink with "clink.default_bindings" set to "bash" so i can use the emacs key bindings within cmd.
+;; I use the windows terminal with cmd as the default prompt(The one that comes runs vcvarsXX.bat at the startup, "Developer Command Prompt for VS <VERSION>" I believe) and clink with "clink.default_bindings" set to "bash" so i can use the emacs key bindings within cmd.
 ;; I also like to modify the "Starting directory" to whatever my current workspace directory is, in the profile of the previously said "dev blah blah prompt".
 
 ;; Defining %HOME% as a user environment variable is also a pretty good idea so emacs thinks ~/ is the user directory on windows. In emacs "~" or home is set to %APPDATA% by default on windows.
 
-;; @Note: I don't really use packages
+;; @Todo: Do some organizaition.
 
-;; @Todo: Do clean-up and organizaition.
 ;; -- Key bindings --
 (global-set-key (kbd "M-p") (kbd "C-<up>"))
 (global-set-key (kbd "M-n") (kbd "C-<down>"))
+
+(global-set-key (kbd "C-{") (kbd "C-x {"))
+(global-set-key (kbd "C-}") (kbd "C-x }"))
 
 (global-set-key (kbd "M-<return>") #'recompile)
 (global-set-key (kbd "C-<return>") #'compile)
@@ -22,20 +26,11 @@
 
 (global-set-key (kbd "C-:") #'open-init-file)
 
-;; -- Cool Stuff --
-
-;; Non vcs-staged file with (mostly) personal stuff in it.
-(setq local-stuff-file (concat user-emacs-directory "local-stuff.el"))
-(when (file-exists-p local-stuff-file)
-  (load local-stuff-file))
-
-(global-auto-revert-mode)
-
 ;; -- Code Style and language specific helpers --
 
 ;; C/C++ Style and custom keywords
 
-(defvar our-c-custom-keywords '("internal" "defer" "global_var" "cast"))
+(defvar our-c-custom-keywords '("internal" "defer" "global_var" "global_var" "cast"))
 
 (defun the-c-mode-hook ()
   (dolist (keyword our-c-custom-keywords)
@@ -50,14 +45,14 @@
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
 
-(add-hook 'c++-mode-hook 'the-c-mode-hook)
-(add-hook 'c-mode-hook 'the-c-mode-hook)
+(add-hook 'c++-mode-hook #'the-c-mode-hook)
+(add-hook 'c-mode-hook #'the-c-mode-hook)
 
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;; -- Bullshit Removal --
+;; -- Other --
 
 (setq special-display-buffer-names
       '("*compilation*"))
@@ -79,22 +74,23 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; I hate the emacs startup screen, it looks stupid.
 (setq inhibit-startup-screen t)
 
-;; Not working properly btw!
 (setq create-lockfiles nil)
 (setq backup-directory-alist
-      `((".*" . "~/.emacs-saves")))
+      `((".*" . ,(concat user-emacs-directory ".emacs-saves/"))))
 (setq auto-save-file-name-transform
-      `((".*" . "~/.emacs-saves")))
+      `((".*" . ,(concat user-emacs-directory ".emacs-saves/"))))
 
-(when (fboundp 'set-message-beep)
-  (set-message-beep 'silent))
+(setq ring-bell-function 'ignore)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(setq completion-styles '(flex basic))
+
+(global-auto-revert-mode)
 
 ;; -- Performance --
 
@@ -105,14 +101,23 @@
 (setq native-comp-speed 2)
 
 ;; -- Looks --
-(setq-default truncate-lines 't)
+;; Line truncation
+(setq-default truncate-lines t)
 (setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist)) ;; Disables the truncation marker.
 
-(when (not (boundp 'current-font))
-  (setq current-font "JetBrains Mono Semibold-12"))
+;; Line numbers and trailing whitespace.
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative)
 
-;;(set-frame-font current-font nil t)
-(add-to-list 'default-frame-alist `(font . ,current-font))
+(setq-default show-trailing-whitespace t)
+(put 'upcase-region 'disabled nil)
+
+;; Font and theme
+(defun set-font (name)
+  (set-frame-font name nil t)
+  (add-to-list 'default-frame-alist `(font . ,name)))
+
+(set-font "JetBrains Mono Semibold-15")
 
 (defun set-theme (theme)
   (load-theme theme)
@@ -123,10 +128,3 @@
 
 (load (expand-file-name "nordic-night-theme/nordic-night-theme.el" user-emacs-directory))
 (set-theme 'nordic-night)
-
-;; Line numbers
-(global-display-line-numbers-mode 1)
-(setq display-line-numbers-type 'relative)
-
-(setq-default show-trailing-whitespace t)
-(put 'upcase-region 'disabled nil)
