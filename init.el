@@ -90,7 +90,8 @@
 
 (setq completion-styles '(flex basic))
 
-(global-auto-revert-mode)
+;; Maybe I should make this toggable.
+;; (global-auto-revert-mode)
 
 ;; -- Performance --
 
@@ -119,12 +120,7 @@
 
 (set-font "JetBrains Mono Semibold-15")
 
-(defun set-theme (theme)
-  (load-theme theme)
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (with-selected-frame frame
-                (load-theme theme t)))))
+(setq theme-file (concat user-emacs-directory "watermelon-theme.el"))
+(load theme-file)
 
-(load (expand-file-name "nordic-night-theme/nordic-night-theme.el" user-emacs-directory))
-(set-theme 'nordic-night)
+(load-theme 'watermelon)
