@@ -30,7 +30,7 @@
 
 ;; C/C++ Style and custom keywords
 
-(defvar our-c-custom-keywords '("internal" "defer" "global_var" "global_var" "cast"))
+(defvar our-c-custom-keywords '("internal" "global_var" "local_persist" "defer"))
 
 (defun the-c-mode-hook ()
   (dolist (keyword our-c-custom-keywords)
@@ -106,7 +106,8 @@
 (setq-default truncate-lines t)
 (setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist)) ;; Disables the truncation marker.
 
-;; Line numbers and trailing whitespace.
+;; Line numbers, column numbers and trailing whitespace.
+(column-number-mode 1)
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 
@@ -118,9 +119,26 @@
   (set-frame-font name nil t)
   (add-to-list 'default-frame-alist `(font . ,name)))
 
-(set-font "JetBrains Mono Semibold-15")
+(set-font "JetBrains Mono Semibold-12.5")
 
-(setq theme-file (concat user-emacs-directory "watermelon-theme.el"))
-(load theme-file)
+(deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since as it uses the same palette")
+  (custom-theme-set-faces 'gruvbox-ish-theme
+   '(default ((t (:foreground "#ebdbb2" :background "#282828" ))))
+   '(cursor ((t (:background "#ebdbb2" ))))
+   '(fringe ((t (:background "#282828" ))))
+   '(mode-line ((t (:foreground "#282828" :background "#7c6f64" ))))
+   '(region ((t (:background "#504945" ))))
+   '(secondary-selection ((t (:background "#3c3836" ))))
+   '(font-lock-builtin-face ((t (:foreground "#8ec07c" ))))
+   '(font-lock-comment-face ((t (:foreground "#7c6f64" ))))
+   '(font-lock-function-name-face ((t (:foreground "#b8bb26" ))))
+   '(font-lock-keyword-face ((t (:foreground "#fb4934" ))))
+   '(font-lock-string-face ((t (:foreground "#b8bb26" ))))
+   '(font-lock-type-face ((t (:foreground "#fabd2f" ))))
+   '(font-lock-constant-face ((t (:foreground "#d3869b" ))))
+   '(font-lock-variable-name-face ((t (:foreground "#83a598" ))))
+   '(minibuffer-prompt ((t (:foreground "#b8bb26" :bold t ))))
+   '(font-lock-warning-face ((t (:foreground "red" :bold t )))))
 
-(load-theme 'watermelon)
+(provide-theme 'gruvbox-ish-theme)
+(enable-theme 'gruvbox-ish-theme)
