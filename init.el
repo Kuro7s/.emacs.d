@@ -119,14 +119,17 @@
   (set-frame-font name nil t)
   (add-to-list 'default-frame-alist `(font . ,name)))
 
-(set-font "JetBrains Mono Semibold-12.5")
+;;(set-font "JetBrains Mono Semibold-12.5")
+(set-font "Comic Mono-12.5")
 
 (deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since as it uses the same palette")
   (custom-theme-set-faces 'gruvbox-ish-theme
-   '(default ((t (:foreground "#ebdbb2" :background "#282828" ))))
+   '(default ((t (:foreground "#ebdbb2" :background "#1c1c1c" ))))
    '(cursor ((t (:background "#ebdbb2" ))))
-   '(fringe ((t (:background "#282828" ))))
-   '(mode-line ((t (:foreground "#282828" :background "#7c6f64" ))))
+   '(fringe ((t (:background "#1c1c1c" ))))
+   '(line-number ((t (:foreground "#7c6f64" :background "#1c1c1c" ))))
+   '(line-number-current-line ((t (:foreground "#fabd2f" ))))
+   '(mode-line ((t (:foreground "#ebdbb2" :background "#303030" ))))
    '(region ((t (:background "#504945" ))))
    '(secondary-selection ((t (:background "#3c3836" ))))
    '(font-lock-builtin-face ((t (:foreground "#8ec07c" ))))
