@@ -8,8 +8,6 @@
 
 ;; Defining %HOME% as a user environment variable is also a pretty good idea so emacs thinks ~/ is the user directory on windows. In emacs "~" or home is set to %APPDATA% by default on windows.
 
-;; @Todo: Do some organizaition.
-
 ;; -- Key bindings --
 (global-set-key (kbd "M-p") (kbd "C-<up>"))
 (global-set-key (kbd "M-n") (kbd "C-<down>"))
@@ -54,10 +52,17 @@
 
 ;; -- Other --
 
-(setq special-display-buffer-names
-      '("*compilation*"))
+;; Non vcs-staged file with (mostly) personal stuff in it.
+(setq local-stuff-file (concat user-emacs-directory "local-stuff.el"))
+(when (file-exists-p local-stuff-file)
+  (load local-stuff-file))
 
-;; @Fix: This doesn't work as intended!
+;; -- Bullshit Removal --
+
+(setq special-display-buffer-names
+    '("*compilation*"))
+
+;; This doesn't work as intended!
 (defun compilation-custom-split-window ()
   (if (< (length (window-list)) 2)
       (progn (split-window-horizontally)
@@ -76,11 +81,14 @@
 
 (setq inhibit-startup-screen t)
 
-(setq create-lockfiles nil)
-(setq backup-directory-alist
-      `((".*" . ,(concat user-emacs-directory ".emacs-saves/"))))
-(setq auto-save-file-name-transform
-      `((".*" . ,(concat user-emacs-directory ".emacs-saves/"))))
+;; (setq emacs-tmp-dir (concat user-emacs-directory ".emacs-tmp/"))
+;; (make-directory emacs-tmp-dir t)
+;;
+;; (setq create-lockfiles nil)
+;; (setq backup-directory-alist
+;;       `((".*" . ,emacs-tmp-dir)))
+;; (setq auto-save-file-name-transform
+;;       `((".*" . ,(concat "\\1" emacs-tmp-dir)))
 
 (setq ring-bell-function 'ignore)
 
@@ -119,10 +127,9 @@
   (set-frame-font name nil t)
   (add-to-list 'default-frame-alist `(font . ,name)))
 
-;;(set-font "JetBrains Mono Semibold-12.5")
-(set-font "Comic Mono-12.5")
+(set-font "JetBrains Mono Semibold-12.5")
 
-(deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since as it uses the same palette")
+(deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since it uses the same palette.")
   (custom-theme-set-faces 'gruvbox-ish-theme
    '(default ((t (:foreground "#ebdbb2" :background "#1c1c1c" ))))
    '(cursor ((t (:background "#ebdbb2" ))))
@@ -145,3 +152,4 @@
 
 (provide-theme 'gruvbox-ish-theme)
 (enable-theme 'gruvbox-ish-theme)
+
