@@ -28,7 +28,7 @@
 
 ;; C/C++ Style and custom keywords
 
-(defvar our-c-custom-keywords '("internal" "global_var" "local_persist" "defer"))
+(defvar our-c-custom-keywords '("function" "internal" "global_variable" "global_var" "local_persistent" "local_persist" "defer"))
 
 (defun the-c-mode-hook ()
   (dolist (keyword our-c-custom-keywords)
@@ -127,7 +127,8 @@
   (set-frame-font name nil t)
   (add-to-list 'default-frame-alist `(font . ,name)))
 
-(set-font "JetBrains Mono Semibold-12.5")
+(set-font "Iosevka-13.5")
+;;(set-font "JetBrains Mono Semibold-12.5")
 
 (deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since it uses the same palette.")
   (custom-theme-set-faces 'gruvbox-ish-theme
