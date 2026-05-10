@@ -81,14 +81,14 @@
 
 (setq inhibit-startup-screen t)
 
-;; (setq emacs-tmp-dir (concat user-emacs-directory ".emacs-tmp/"))
-;; (make-directory emacs-tmp-dir t)
-;;
-;; (setq create-lockfiles nil)
-;; (setq backup-directory-alist
-;;       `((".*" . ,emacs-tmp-dir)))
-;; (setq auto-save-file-name-transform
-;;       `((".*" . ,(concat "\\1" emacs-tmp-dir)))
+(setq emacs-tmp-dir (concat user-emacs-directory ".emacs-tmp/"))
+(make-directory emacs-tmp-dir t)
+
+(setq create-lockfiles nil)
+(setq backup-directory-alist
+      `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+      `((".*" ,(concat "\\1" emacs-tmp-dir))))
 
 (setq ring-bell-function 'ignore)
 
