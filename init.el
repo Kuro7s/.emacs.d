@@ -129,17 +129,24 @@
 
 (set-font "Iosevka-13.5")
 
+;; These are slow!!!
 (load-file (concat user-emacs-directory "nordic-night-theme.el"))
 (load-file (concat user-emacs-directory "gruvbox-ish-theme.el"))
 
 ;; --- Theme loading ---
-
 (defvar default-theme 'gruvbox-ish)
 
 (defvar theme-file (concat user-emacs-directory "colorscheme.el"))
 
+(defun run-before-enable-theme-hook (theme &rest _args)
+  (unless (eq theme 'user)
+    (dolist (it custom-enabled-themes)
+      (unless (eq it theme)
+        (disable-theme it)))))
+
+(advice-add 'enable-theme :before #'run-before-enable-theme-hook)
+
 (defun run-after-enable-theme-hook (&rest args)
-  (mapc #'disable-theme custom-enabled-themes) ; Should this go here?
   (write-region (format "(load-theme '%s t)" (symbol-name (car args))) nil theme-file))
 
 (advice-add 'enable-theme :after #'run-after-enable-theme-hook)
