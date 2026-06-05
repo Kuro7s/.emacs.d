@@ -128,42 +128,21 @@
   (add-to-list 'default-frame-alist `(font . ,name)))
 
 (set-font "Iosevka-13.5")
-;;(set-font "JetBrains Mono Semibold-12.5")
 
-(deftheme gruvbox-ish-theme "A gruvbox-ish theme for emacs. You could even say this is just gruvbox since it uses the same palette.")
-  (custom-theme-set-faces 'gruvbox-ish-theme
-   '(default ((t (:foreground "#ebdbb2" :background "#1c1c1c" ))))
-   '(cursor ((t (:background "#ebdbb2" ))))
-   '(fringe ((t (:background "#1c1c1c" ))))
-   '(line-number ((t (:foreground "#7c6f64" :background "#1c1c1c" ))))
-   '(line-number-current-line ((t (:foreground "#fabd2f" ))))
-   '(mode-line ((t (:foreground "#ebdbb2" :background "#303030" ))))
-   '(region ((t (:background "#504945" ))))
-   '(secondary-selection ((t (:background "#3c3836" ))))
-   '(font-lock-builtin-face ((t (:foreground "#8ec07c" ))))
-   '(font-lock-comment-face ((t (:foreground "#7c6f64" ))))
-   '(font-lock-function-name-face ((t (:foreground "#b8bb26" ))))
-   '(font-lock-keyword-face ((t (:foreground "#fb4934" ))))
-   '(font-lock-string-face ((t (:foreground "#b8bb26" ))))
-   '(font-lock-type-face ((t (:foreground "#fabd2f" ))))
-   '(font-lock-constant-face ((t (:foreground "#d3869b" ))))
-   '(font-lock-variable-name-face ((t (:foreground "#83a598" ))))
-   '(minibuffer-prompt ((t (:foreground "#b8bb26" :bold t ))))
-   '(font-lock-warning-face ((t (:foreground "red" :bold t ))))
-   '(tab-bar ((t (:background "#303030"))))
-   '(tab-bar-tab ((t (:foreground "#ebdbb2" :background "#1c1c1c"))))
-   '(tab-bar-tab-inactive ((t (:foreground "#dacaa1" :background "#303030"))))
-   '(tab-line ((t (:background "#303030"))))
-   '(tab-line-tab ((t (:foreground "#ebdbb2" :background "#1c1c1c"))))
-   '(tab-line-tab-inactive ((t (:foreground "#dacaa1" :background "#303030")))))
+(load-file (concat user-emacs-directory "nordic-night-theme.el"))
+(load-file (concat user-emacs-directory "gruvbox-ish-theme.el"))
 
-(setq tab-bar-close-button-show nil)
-(setq tab-bar-new-button-show nil)
+;; --- Theme loading ---
 
-(setq tab-line-close-button-show nil)
+(defvar default-theme 'gruvbox-ish)
 
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-format-separator))
+(defvar theme-file (concat user-emacs-directory "colorscheme.el"))
 
-(provide-theme 'gruvbox-ish-theme)
-(enable-theme 'gruvbox-ish-theme)
+(defun run-after-enable-theme-hook (&rest args)
+  (write-region (format "(load-theme '%s t)" (symbol-name (car args))) nil theme-file))
 
+(advice-add 'enable-theme :after #'run-after-enable-theme-hook)
+
+(if (file-exists-p theme-file)
+    (load-file theme-file)
+  (load-theme default-theme t))
