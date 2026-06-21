@@ -40,11 +40,11 @@
     ;;       P.S: It took me like six hours to figure this stupid shit out (not a fucking joke)...
     (push keyword c-noise-macro-with-parens-names))
 
-  (setq c-basic-offset 4)
+  (setq c-basic-offset 2)
   (c-set-offset 'substatement-open 0))
 
 (add-hook 'c++-mode-hook #'the-c-mode-hook)
-(add-hook 'c-mode-hook #'the-c-mode-hook)
+(add-hook 'c-mode-hook #'the-c-mode-hook) ;; Is this necessary?
 
 (setq-default indent-tabs-mode nil)
 
@@ -129,11 +129,11 @@
 
 (set-font "Iosevka-13.5")
 
+;; --- Theme loading ---
 ;; These are slow!!!
 (load-file (concat user-emacs-directory "nordic-night-theme.el"))
 (load-file (concat user-emacs-directory "gruvbox-ish-theme.el"))
 
-;; --- Theme loading ---
 (defvar default-theme 'gruvbox-ish)
 
 (defvar theme-file (concat user-emacs-directory "colorscheme.el"))
