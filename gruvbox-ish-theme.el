@@ -7,7 +7,8 @@
    '(fringe ((t (:background "#1c1c1c" ))))
    '(line-number ((t (:foreground "#7c6f64" :background "#1c1c1c" ))))
    '(line-number-current-line ((t (:foreground "#fabd2f" ))))
-   '(mode-line ((t (:foreground "#ebdbb2" :background "#303030" ))))
+   '(mode-line ((t (:foreground "#ebdbb2" :background "#303030"))))
+   '(mode-line-inactive ((t (:foreground "#ebdbb2" :background "#1c1c1c"))))
    '(region ((t (:background "#504945" ))))
    '(secondary-selection ((t (:background "#3c3836" ))))
    '(font-lock-builtin-face ((t (:foreground "#8ec07c" ))))
@@ -17,7 +18,7 @@
    '(font-lock-string-face ((t (:foreground "#b8bb26" ))))
    '(font-lock-type-face ((t (:foreground "#fabd2f" ))))
    '(font-lock-constant-face ((t (:foreground "#d3869b" ))))
-   '(font-lock-variable-name-face ((t (:foreground "#83a598" ))))
+   '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
    '(minibuffer-prompt ((t (:foreground "#b8bb26" :bold t ))))
    '(font-lock-warning-face ((t (:foreground "red" :bold t ))))
    '(tab-bar ((t (:background "#303030"))))
@@ -25,12 +26,15 @@
    '(tab-bar-tab-inactive ((t (:foreground "#dacaa1" :background "#303030"))))
    '(tab-line ((t (:background "#303030"))))
    '(tab-line-tab ((t (:foreground "#ebdbb2" :background "#1c1c1c"))))
-   '(tab-line-tab-inactive ((t (:foreground "#dacaa1" :background "#303030")))))
+   '(tab-line-tab-inactive ((t (:foreground "#dacaa1" :background "#303030"))))
+   '(highlight ((t (:background "#303030"))))
+   '(success ((t (:foreground "#8ec07c"))))
+   '(link ((t (:foreground "#d3869b" :underline t))))
+   '(menu ((t (:foreground "#ebdbb2" :background "#3c3836"))))
+   '(popup-tip-face ((t (:foreground "#ebdbb2" :background "#3c3836")))))
 
 (setq tab-bar-close-button-show nil)
 (setq tab-bar-new-button-show nil)
-
-(setq tab-line-close-button-show nil)
 
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-format-separator))
 
