@@ -28,27 +28,36 @@
 
 ;; C/C++ Style and custom keywords
 
-(defvar our-c-custom-keywords '("function" "internal" "global_variable" "global_var" "local_persistent" "local_persist" "defer"))
-
-(defun the-c-mode-hook ()
-  (dolist (keyword our-c-custom-keywords)
+(defun add-custom-keywords (face keywords)
+  (dolist (keyword keywords)
     (font-lock-add-keywords
      nil
-     `((,(concat "\\<" keyword "\\>") . 'font-lock-keyword-face)))
+     `((,(concat "\\<" keyword "\\>") . ,face)))
 
     ;; NOTE: This prevents the keyword from being fontified with font-lock-type-face when located in front of declarations.
     ;;       P.S: It took me like six hours to figure this stupid shit out (not a fucking joke)...
-    (push keyword c-noise-macro-with-parens-names))
+    (push keyword c-noise-macro-with-parens-names)))
 
+(defun the-c-mode-hook ()
   (setq c-basic-offset 2)
-  (c-set-offset 'substatement-open 0))
+  (c-set-offset 'substatement-open 0)
+
+  (add-custom-keywords font-lock-keyword-face
+                       '("function" "internal" "read_only"
+                         "global" "global_var" "global_variable"
+                         "persistent_local" "local_persistent" "local_persist"
+                         "defer" "cast"))
+  (add-custom-keywords font-lock-builtin-face
+                       '("Assert" "Verify"))
+  (add-custom-keywords font-lock-constant-face
+    '("GB" "MB" "KB" "zero_struct")))
 
 (add-hook 'c++-mode-hook #'the-c-mode-hook)
 (add-hook 'c-mode-hook #'the-c-mode-hook) ;; Is this necessary?
 
 (setq-default indent-tabs-mode nil)
 
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
 
 ;; -- Other --
 

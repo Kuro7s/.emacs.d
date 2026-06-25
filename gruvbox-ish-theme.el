@@ -31,6 +31,8 @@
    '(success ((t (:foreground "#8ec07c"))))
    '(link ((t (:foreground "#d3869b" :underline t))))
    '(menu ((t (:foreground "#ebdbb2" :background "#3c3836"))))
+   `(show-paren-match ((t (:background "#504945"))))
+   `(show-paren-mismatch ((t (:background "#804945"))))
    '(popup-tip-face ((t (:foreground "#ebdbb2" :background "#3c3836")))))
 
 (setq tab-bar-close-button-show nil)
